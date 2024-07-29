@@ -22,12 +22,12 @@ class PriceTrackingAutomator:
     """
 
     def __init__(self):
-        self.gc = gc.service_account("steam-talent-404201-0536079b7ca9.json")
+        self.gc = gc.service_account(os.getenv("STEAM_TALENT_JSON_FILE"))
         self.voucher_df = self.get_voucher_df()
 
     def get_all_stock_db(self):
-        all_stock_sheet = self.gc.open_by_key("1qqI-9I99Kix2PS1ksUralHeFXoyaArN7ZXYmCnMDLA0")
-        all_stock_workbook = all_stock_sheet.worksheet(os.getenv("STOCK_DB_API_KEY"))
+        all_stock_sheet = self.gc.open_by_key(os.getenv("STOCK_DB_API_KEY"))
+        all_stock_workbook = all_stock_sheet.worksheet("My Stock")
         all_stock_record = all_stock_workbook.get_all_records()
 
         cleaned_records_list = list()
